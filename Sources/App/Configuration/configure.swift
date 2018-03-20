@@ -1,4 +1,4 @@
-import Fluent
+import FluentMySQL
 import Vapor
 
 public func configure(
@@ -6,6 +6,8 @@ public func configure(
     _ env: inout Environment,
     _ services: inout Services
 ) throws {
+    try services.register(FluentMySQLProvider())
+    
     let router = EngineRouter.default()
     try routes(router)
     services.register(router, as: Router.self)
@@ -16,6 +18,7 @@ public func configure(
     services.register(middlewares)
 
     var databases = DatabaseConfig()
+    databases.add(database: MySQLDatabase(hostname: "localhost", user: "root", password: nil, database: "chatter"), as: .mysql)
     services.register(databases)
 
     var migrations = MigrationConfig()
