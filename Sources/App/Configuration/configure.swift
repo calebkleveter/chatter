@@ -18,7 +18,8 @@ public func configure(
     services.register(middlewares)
 
     var databases = DatabaseConfig()
-    databases.add(database: MySQLDatabase(hostname: "localhost", user: "root", password: nil, database: "chatter"), as: .mysql)
+    let config = MySQLDatabaseConfig.root(database: "chatter")
+    databases.add(database: MySQLDatabase(config: config), as: .mysql)
     services.register(databases)
 
     var migrations = MigrationConfig()
