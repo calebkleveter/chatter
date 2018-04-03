@@ -3,9 +3,7 @@ import Foundation
 import Vapor
 
 final class User: Content {
-    var id: UUID?
-    
-    var username: String
+    var username: String?
     var firstname: String
     var lastname: String
     var email: String
@@ -20,5 +18,12 @@ final class User: Content {
     }
 }
 
-extension User: PostgreSQLUUIDModel {}
+extension User: Model {
+    typealias Database = PostgreSQLDatabase
+    
+    static var idKey: WritableKeyPath<User, String?> {
+        return \.username
+    }
+}
+
 extension User: Migration {}
