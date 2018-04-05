@@ -2,7 +2,7 @@ import FluentPostgreSQL
 import Foundation
 import Vapor
 
-final class User: Content {
+final class User: Content, Parameter {
     var username: String?
     var firstname: String
     var lastname: String
