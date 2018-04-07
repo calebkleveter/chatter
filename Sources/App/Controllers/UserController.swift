@@ -15,4 +15,8 @@ final class UserController: RouteCollection {
     func show(_ request: Request)throws -> Future<User> {
         return try request.parameter(User.self)
     }
+    
+    func delete(_ request: Request)throws -> Future<HTTPStatus> {
+        return try request.parameter(User.self).transform(to: .noContent)
+    }
 }
