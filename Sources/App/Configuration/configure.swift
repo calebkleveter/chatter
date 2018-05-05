@@ -27,6 +27,6 @@ public func configure(
     services.register(migrations)
     
     var commands = CommandConfig.default()
-    commands.use(RevertCommand.self, as: "revert")
+    commands.useFluentCommands()
     services.register(commands)
 }
