@@ -2,7 +2,15 @@ import Vapor
 import Fluent
 
 final class UserController: RouteCollection {
-    func boot(router: Router) throws {}
+    func boot(router: Router) throws {
+        let users = router.grouped("users")
+        
+        users.post(User.self, use: create)
+        users.get(use: index)
+        users.get(User.parameter, use: show)
+        users.patch(UserContent.self, at: User.parameter, use: update)
+        users.delete(User.parameter, use: delete)
+    }
     
     func create(_ request: Request, _ user: User)throws -> Future<User> {
         return user.save(on: request)
