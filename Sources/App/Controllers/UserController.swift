@@ -21,11 +21,11 @@ final class UserController: RouteCollection {
     }
     
     func show(_ request: Request)throws -> Future<User> {
-        return try request.parameter(User.self)
+        return try request.parameters.next(User.self)
     }
     
     func update(_ request: Request, _ body: UserContent)throws -> Future<User> {
-        let user = try request.parameter(User.self)
+        let user = try request.parameters.next(User.self)
         return user.map(to: User.self, { user in
             user.username = body.username ?? user.username
             user.firstname = body.firstname ?? user.firstname
@@ -37,7 +37,7 @@ final class UserController: RouteCollection {
     }
     
     func delete(_ request: Request)throws -> Future<HTTPStatus> {
-        return try request.parameter(User.self).delete(on: request).transform(to: .noContent)
+        return try request.parameters.next(User.self).delete(on: request).transform(to: .noContent)
     }
 }
 

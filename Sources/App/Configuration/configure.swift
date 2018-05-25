@@ -13,11 +13,10 @@ public func configure(
     services.register(router, as: Router.self)
 
     var middlewares = MiddlewareConfig()
-    middlewares.use(DateMiddleware.self)
     middlewares.use(ErrorMiddleware.self)
     services.register(middlewares)
 
-    var databases = DatabaseConfig()
+    var databases = DatabasesConfig()
     let config = PostgreSQLDatabaseConfig(hostname: "localhost", username: "calebkleveter", database: "chatter")
     databases.add(database: PostgreSQLDatabase(config: config), as: .psql)
     services.register(databases)
