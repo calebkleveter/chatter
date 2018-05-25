@@ -37,7 +37,7 @@ final class UserController: RouteCollection {
     }
     
     func delete(_ request: Request)throws -> Future<HTTPStatus> {
-        return try request.parameter(User.self).transform(to: .noContent)
+        return try request.parameter(User.self).delete(on: request).transform(to: .noContent)
     }
 }
 
