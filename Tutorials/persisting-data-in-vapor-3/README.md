@@ -146,3 +146,5 @@ If you look in your database, there will be the user we just created:
 Now we know how to connect a database to our Vapor application and make models that we can store in it. We will discuss model querying and routing in our next tutorial, so be sure not to miss it!
 
 If you are interested in downloading the project, it is hosted [on GitHub](https://github.com/calebkleveter/chatter/tree/persisting-data-in-vapor3). If you ever run into any issues, or just want to chat with other Vapor users (AKA, droplets), pop over to the [Slack community](https://vapor.team/). We’d love to hear from you!
+
+*Go to the next tutorial in this series, [here](https://theswiftwebdeveloper.com/diving-into-vapor-part-3-introduction-to-routing-and-fluent-in-vapor-3-221d209f1fec).*

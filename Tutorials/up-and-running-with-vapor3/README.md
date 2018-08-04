@@ -87,4 +87,6 @@ You might remember that the default routes in the template had a parameter that 
 
 Now we have the knowledge to create our own project and get it ready to build. We can also create a route that returns any string we want. In the next tutorial, we will cover how to connect your application to a relational database and creating models to store data.
 
-If you are interested in downloading the project, it is hosted [on GitHub](https://github.com/calebkleveter/chatter/tree/up-and-running-with-vapor3). If you ever run into any issues, or just want to chat with other Vapor users (AKA, droplets), pop over to the [Slack community](https://vapor.team/). We’d love to hear from you!
+If you are interested in downloading the project, it is hosted [on GitHub](https://github.com/calebkleveter/chatter/tree/up-and-running-with-vapor3). If you ever run into any issues, or just want to chat with other Vapor users (AKA, droplets), pop over to the [Discord server](https://vapor.team/). We’d love to hear from you!
+
+*Go to the next tutorial in this series, [here](https://theswiftwebdeveloper.com/diving-into-vapor-part-2-persisting-data-in-vapor-3-c927638301e8).*
