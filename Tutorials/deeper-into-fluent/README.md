@@ -13,3 +13,12 @@ We are going to call the pivot model `UserConnection`. That model looks like thi
 https://gist.github.com/calebkleveter/a363cfb901020f46a47032fa0873b4dc
 
 Everything but [lines 12 - 17](https://gist.github.com/calebkleveter/a363cfb901020f46a47032fa0873b4dc#file-userconnection-swift-L11-L17) are required by the `PostgreSQLPivot` protocol. We add the `rightID` and `leftID` properties so we can satisfy the `rightIDKey` and `leftIDKey` properties. The initializer takes in two `User` models and extracts the IDs to assign them to the `rightID` and `leftID` properties. If either ID is missing, an error is thrown.
+
+Conform the `UserConnection` pivot to the `Migration` protocol: 
+
+https://gist.github.com/calebkleveter/19a125473daefc420f240327fff38629
+
+Then add it to the migration config in the global `configure(_:_:_:)` function:
+
+https://gist.github.com/calebkleveter/af2ef7bb6127c9c3b3bbda2a185b314a
+
