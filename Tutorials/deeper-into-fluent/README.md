@@ -53,3 +53,7 @@ You should now have the following extension in your `UserConnection.swift` file:
 https://gist.github.com/calebkleveter/371e0731e3c24b5f28ff2e7847e33a62
 
 
+## [Query it Over Again](https://docs.vapor.codes/3.0/fluent/querying/)
+
+
+
