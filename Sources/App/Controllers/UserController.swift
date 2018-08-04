@@ -8,6 +8,8 @@ final class UserController: RouteCollection {
         users.post(User.self, use: create)
         users.get(use: index)
         users.get(User.parameter, use: show)
+        users.get(User.parameter, "followers", use: followers)
+        users.get(User.parameter, "following", use: following)
         users.patch(UserContent.self, at: User.parameter, use: update)
         users.delete(User.parameter, use: delete)
     }
@@ -22,6 +24,18 @@ final class UserController: RouteCollection {
     
     func show(_ request: Request)throws -> Future<User> {
         return try request.parameters.next(User.self)
+    }
+    
+    func followers(_ request: Request)throws -> Future<[User]> {
+        return try request.parameters.next(User.self).flatMap { user in
+            return try user.followers.query(on: request).all()
+        }
+    }
+    
+    func following(_ request: Request)throws -> Future<[User]> {
+        return try request.parameters.next(User.self).flatMap { user in
+            return try user.following.query(on: request).all()
+        }
     }
     
     func update(_ request: Request, _ body: UserContent)throws -> Future<User> {

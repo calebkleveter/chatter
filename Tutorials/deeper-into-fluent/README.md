@@ -55,5 +55,9 @@ https://gist.github.com/calebkleveter/371e0731e3c24b5f28ff2e7847e33a62
 
 ## [Query it Over Again](https://docs.vapor.codes/3.0/fluent/querying/)
 
+We will now put our pivot to use by adding some more routes to the `UserController`. The first two routes will be simple, getting the user's followers and the user's he/she/bot is following. We have already discussed in previous tutorials what you need to make these routes, so give it a shot before looking at my code below!
+
+https://gist.github.com/calebkleveter/7a1709f9f23d9b2a8445556bb86382e7
+
 
 
