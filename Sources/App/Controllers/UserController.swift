@@ -6,16 +6,32 @@ final class UserController: RouteCollection {
         let users = router.grouped("users")
         
         users.post(User.self, use: create)
+        users.post(User.parameter, "follow", use: follow)
+        
         users.get(use: index)
         users.get(User.parameter, use: show)
         users.get(User.parameter, "followers", use: followers)
         users.get(User.parameter, "following", use: following)
+        
         users.patch(UserContent.self, at: User.parameter, use: update)
+        
         users.delete(User.parameter, use: delete)
     }
     
     func create(_ request: Request, _ user: User)throws -> Future<User> {
         return user.save(on: request)
+    }
+    
+    func follow(_ request: Request)throws -> Future<[String: User]> {
+        let current = try request.parameters.next(User.self)
+        let followID = request.content.get(User.ID.self, at: "follow")
+        let follow = followID.and(result: request).flatMap(User.find).unwrap(or: Abort(.badRequest, reason: "Unable to find user with ID"))
+        
+        return flatMap(to: (current: User, following: User).self, current, follow) { current, follow in
+            return current.follow(user: follow, on: request)
+        }.map { users in
+            return ["current": users.current, "following": users.following]
+        }
     }
     
     func index(_ request: Request)throws -> Future<[User]> {

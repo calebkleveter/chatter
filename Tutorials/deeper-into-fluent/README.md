@@ -6,7 +6,7 @@ In the [last tutorial](https://theswiftwebdeveloper.com/diving-into-vapor-part-3
 
 ## [Model Relations](https://docs.vapor.codes/3.0/fluent/relations/)
 
-We are going to start with a [sibling](https://docs.vapor.codes/3.0/fluent/relations/#siblings), or many-to-many, relationship. The app we are building will be a simple social media app. One important part of any social media being able to follow people. To represent a follower/following connection, we would have a model that has two `User` IDs, one for the follower and one for the followed. Fluent has a protocol to help us build this kind of structure called `Pivot`. There are database type specific versions of this protocol, so use `PostgreSQLPivot` or `MySQLPivot` based on which database you are using.
+We are going to start with a [sibling](https://docs.vapor.codes/3.0/fluent/relations/#siblings), or many-to-many, relationship. The app we are building will be a simple social media app. One important part of any social media platform is being able to follow people. To represent a follower/following connection, we would have a model that has two `User` IDs, one for the follower and one for the followed. Fluent has a protocol to help us build this kind of structure called `Pivot`. There are database type specific versions of this protocol, so use `PostgreSQLPivot` or `MySQLPivot` based on which database you are using.
 
 We are going to call the pivot model `UserConnection`. That model looks like this:
 
@@ -55,9 +55,17 @@ https://gist.github.com/calebkleveter/371e0731e3c24b5f28ff2e7847e33a62
 
 ## [Query it Over Again](https://docs.vapor.codes/3.0/fluent/querying/)
 
-We will now put our pivot to use by adding some more routes to the `UserController`. The first two routes will be simple, getting the user's followers and the user's he/she/bot is following. We have already discussed in previous tutorials what you need to make these routes, so give it a shot before looking at my code below!
+We will now put our pivot to use by adding some more routes to the `UserController`. The first two routes will be simple, getting the user's followers and the user's he/she is following. We have already discussed in previous tutorials what you need to make these routes, so give it a shot before looking at my code below!
 
 https://gist.github.com/calebkleveter/7a1709f9f23d9b2a8445556bb86382e7
+
+We are going to add two more route to the `UserController`. One for following a user and another for un-following a user.
+
+To follow a user, we are going to use a `POST` route (because we are creating a new pivot) with the path `{user}/follow`.
+
+https://gist.github.com/calebkleveter/623b45444a6fa812d9d0f7bf47c181a3
+
+The handler just takes in a request. We get the user that will follow from the request's parameters and the user *to* follow from the request's body, with the `follow` key. After we find the user to follow, we create a new `UserConnection` pivot with the `User.follow(user:on:)` method. We then convert the tuple returned by that method to a dictionary and return it.
 
 
 
