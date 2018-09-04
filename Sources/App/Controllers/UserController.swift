@@ -73,7 +73,7 @@ final class UserController: RouteCollection {
     
     func unfollow(_ request: Request)throws -> Future<HTTPStatus> {
         let current = try request.parameters.next(User.self)
-        let followingID = request.content.get(User.ID.self, at: "unFollow")
+        let followingID = request.content.get(User.ID.self, at: "unfollow")
         let following = followingID.and(result: request).flatMap(User.find).unwrap(or: Abort(.badRequest, reason: "Unable to find user with ID"))
         
         return flatMap(to: HTTPStatus.self, current, following) { current, following in
