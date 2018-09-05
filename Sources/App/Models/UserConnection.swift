@@ -32,13 +32,11 @@ extension User {
     func follow(user: User, on connection: DatabaseConnectable) -> Future<(current: User, following: User)> {
         return Future.flatMap(on: connection) {
             let pivot = try UserConnection(left: self, right: user)
-            return pivot.save(on: connection).map { _ in return (self, user) }
+            return pivot.save(on: connection).transform(to: (self, user))
         }
     }
     
     func unfollow(user: User, on connection: DatabaseConnectable) -> Future<(current: User, unfollowed: User)> {
-        return Future.flatMap(on: connection) {
-            return self.following.detach(user, on: connection).map { _ in (self, user) }
-        }
+        return self.following.detach(user, on: connection).transform(to: (self, user))
     }
 }
