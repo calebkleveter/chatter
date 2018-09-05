@@ -1,3 +1,5 @@
+![header](https://raw.githubusercontent.com/calebkleveter/chatter/master/Tutorials/deeper-into-fluent/header.png)
+
 # Deeper into Fluent
 
 In the [last tutorial](https://theswiftwebdeveloper.com/diving-into-vapor-part-3-introduction-to-routing-and-fluent-in-vapor-3-221d209f1fec), we looked at the basics of Fluent queries (and routing, but that doesn't matter at this time). This time, we will dig a little deeper with queries and model relations.
