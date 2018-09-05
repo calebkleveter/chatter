@@ -84,7 +84,7 @@ We put the filters in an `or` group because if a user has a username of `Jonny` 
 ## [Migrating the ID](https://docs.vapor.codes/3.0/fluent/migrations/)
 
 
-We have been using the `username` property of the `User` model as the model's ID up 'til now, but that is actually a bad idea. An ID should never change for a model, but some users will want to change their username from time to time. We are going to modify the `User` model to have a `UUID` as its ID, but keep the `username` property unique.
+We have been using the `username` property of the `User` model as the model's ID up until now, but that is actually a bad idea. An ID should never change for a model, but some users will want to change their username from time to time. We are going to modify the `User` model to have a `UUID` as its ID, but keep the `username` property unique.
 
 First, add a `var id: UUID?` property to the `User` model and make the `username` property non-optional. Then replace the `User: Model` extension to be either `PostgreSQLUUIDModel` or `MySQLUUIDModel`, depending on the database you are using:
 
@@ -94,7 +94,13 @@ This will break our `UserConnection` implementation. You will need to change the
 
 https://gist.github.com/calebkleveter/8e8c48d0179b6a19e584d3de2bb58c1e
 
+Now we are going to create a custom migration for the `User` model. A migration is basically instructions that Fluent uses to generate the model's table in the database. There is a default implementation for this, which is why we didn't need to do this ourselves before.
 
+https://gist.github.com/calebkleveter/cd18971cbcf3288a1eb29121c0a7d444
+
+The `Database.create` method creates a table in the database for the model passed in (`self`), using the `SchemaCreator` passed in as a blue print for the table. The `addProperties(to:)` method uses the `init(from:)` decoder initializer to get a reflection of the model and create columns for the model's properties. That is what the migration does by default.
+
+We added two more instructions to the migration to mark both the `username` and `email` columns as `UNIQUE`. This means the no two users can share the same username or email.
 
 
 
