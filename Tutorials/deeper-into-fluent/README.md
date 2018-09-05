@@ -63,13 +63,13 @@ https://gist.github.com/calebkleveter/7a1709f9f23d9b2a8445556bb86382e7
 
 We are going to add two more route to the `UserController`. One for following a user and another for un-following a user.
 
-To follow a user, we are going to use a `POST` route (because we are creating a new pivot) with the path `{user}/follow`.
+To follow a user, we are going to use a `POST` route (because we are creating a new pivot) with the path `users/{user}/follow`.
 
 https://gist.github.com/calebkleveter/623b45444a6fa812d9d0f7bf47c181a3
 
 The handler just takes in a request. We get the user that will follow from the request's parameters and the user *to* follow from the request's body, with the `follow` key. After we find the user to follow, we create a new `UserConnection` pivot with the `User.follow(user:on:)` method. We then convert the tuple returned by that method to a dictionary and return it.
 
-To un-follow a user, we are going to make a `DELETE` route with the path `{user}/un-follow`. The handler will be very similar to the one for following another user:
+To un-follow a user, we are going to make a `DELETE` route with the path `users/{user}/un-follow`. The handler will be very similar to the one for following another user:
 
 https://gist.github.com/calebkleveter/3f25d98a7f116920569278047b37e2d4
 
