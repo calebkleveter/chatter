@@ -4,6 +4,8 @@ In the [last tutorial](https://theswiftwebdeveloper.com/diving-into-vapor-part-3
 
 *Make sure you run `vapor update -y` or `swift package update` before starting.*
 
+---
+
 ## [Model Relations](https://docs.vapor.codes/3.0/fluent/relations/)
 
 We are going to start with a [sibling](https://docs.vapor.codes/3.0/fluent/relations/#siblings), or many-to-many, relationship. The app we are building will be a simple social media app. One important part of any social media platform is being able to follow people. To represent a follower/following connection, we would have a model that has two `User` IDs, one for the follower and one for the followed. Fluent has a protocol to help us build this kind of structure called `Pivot`. There are database type specific versions of this protocol, so use `PostgreSQLPivot` or `MySQLPivot` based on which database you are using.
@@ -81,12 +83,18 @@ First we get the `name` value from the request's query strings. Then we have to 
 
 We put the filters in an `or` group because if a user has a username of `Jonny` but their first name is `Steve`, you would never be able to find that user in the search.
 
+---
+
+We aren't using raw queries for this project (or, at least not yet), but if you are wondering how they work, here is an example:
+
+https://gist.github.com/calebkleveter/80b775e5fa03cef935314f96c8ea0aa9
+
 ## [Migrating the ID](https://docs.vapor.codes/3.0/fluent/migrations/)
 
 
-We have been using the `username` property of the `User` model as the model's ID up until now, but that is actually a bad idea. An ID should never change for a model, but some users will want to change their username from time to time. We are going to modify the `User` model to have a `UUID` as its ID, but keep the `username` property unique.
+We changed the ID of the model to the `username` in the last tutorial, but that is actually a bad idea. An ID should never change for a model, but some users will want to change their username from time to time. We are going to modify the `User` model to have a `UUID` as its ID, but keep the `username` property unique.
 
-First, add a `var id: UUID?` property to the `User` model and make the `username` property non-optional. Then replace the `User: Model` extension to be either `PostgreSQLUUIDModel` or `MySQLUUIDModel`, depending on the database you are using:
+First, add a `var id: UUID?` property back to the `User` model and make the `username` property non-optional. Then replace the `User: Model` extension to be either `PostgreSQLUUIDModel` or `MySQLUUIDModel`, depending on the database you are using:
 
 https://gist.github.com/calebkleveter/bb565870c9b3cb6635fc1d49e0a6e32c
 
@@ -102,7 +110,12 @@ The `Database.create` method creates a table in the database for the model passe
 
 We added two more instructions to the migration to mark both the `username` and `email` columns as `UNIQUE`. This means the no two users can share the same username or email.
 
+Now that we have changed the properties of the `User` model, we will need to regenerate the table in the database. Like last time when we made a change, run `vapor build && vapor run revert --all` in the command-line.
 
+---
 
+Good Job! You have come to the end of this tutorial. You should now have the knowledge to create pivots between models, more complex queries with the Fluent ORM, and how migrations work under the hood.
+
+Remember that [the docs](https://docs.vapor.codes/3.0/) are always your best friend and there is always someone willing to help on the [Discord server](https://discordapp.com/invite/BnXmVGA)! Have fun!
 
 
