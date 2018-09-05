@@ -120,6 +120,6 @@ Good Job! You have come to the end of this tutorial. You should now have the kno
 
 The source-code for this project can be found [here](https://github.com/calebkleveter/chatter/tree/deeper-into-fluent).
 
-Remember that [the docs](https://docs.vapor.codes/3.0/) are always your best friend and there is always someone willing to help on the [Discord server](https://discordapp.com/invite/BnXmVGA)! Have fun!
+Remember that [the docs](https://docs.vapor.codes/3.0/) are your best friend and there is always someone willing to help on the [Discord server](https://discordapp.com/invite/BnXmVGA)! Have fun!
 
 
