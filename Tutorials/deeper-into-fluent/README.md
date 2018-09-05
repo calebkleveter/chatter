@@ -118,6 +118,8 @@ Now that we have changed the properties of the `User` model, we will need to reg
 
 Good Job! You have come to the end of this tutorial. You should now have the knowledge to create pivots between models, more complex queries with the Fluent ORM, and how migrations work under the hood.
 
+The source-code for this project can be found [here](https://github.com/calebkleveter/chatter/tree/deeper-into-fluent).
+
 Remember that [the docs](https://docs.vapor.codes/3.0/) are always your best friend and there is always someone willing to help on the [Discord server](https://discordapp.com/invite/BnXmVGA)! Have fun!
 
 
