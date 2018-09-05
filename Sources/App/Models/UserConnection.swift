@@ -4,12 +4,12 @@ final class UserConnection: PostgreSQLPivot {
     typealias Left = User
     typealias Right = User
     
-    static var leftIDKey: WritableKeyPath<UserConnection, String> = \.leftID
-    static var rightIDKey: WritableKeyPath<UserConnection, String> = \.rightID
+    static var leftIDKey: WritableKeyPath<UserConnection, UUID> = \.leftID
+    static var rightIDKey: WritableKeyPath<UserConnection, UUID> = \.rightID
     
     var id: Int?
-    var leftID: String
-    var rightID: String
+    var leftID: UUID
+    var rightID: UUID
     
     init(left: User, right: User)throws {
         self.leftID = try left.requireID()

@@ -77,9 +77,23 @@ We will add one more route to the `UserController` to search for users by their 
 
 https://gist.github.com/calebkleveter/794b1a50b1dfbcc964e8a29b24d27ac9
 
-First we get the `name` value from the request's query strings.
+First we get the `name` value from the request's query strings. Then we have to find the `User` models that match it. We do this using the `=~` operator. This operator requires that the beginning of the string matches the value passed in, so "hello" would match "hello world". You need to import the `FluentSQL` module to use this operator, because it is SQL specific.
+
+We put the filters in an `or` group because if a user has a username of `Jonny` but their first name is `Steve`, you would never be able to find that user in the search.
 
 ## [Migrating the ID](https://docs.vapor.codes/3.0/fluent/migrations/)
+
+
+We have been using the `username` property of the `User` model as the model's ID up 'til now, but that is actually a bad idea. An ID should never change for a model, but some users will want to change their username from time to time. We are going to modify the `User` model to have a `UUID` as its ID, but keep the `username` property unique.
+
+First, add a `var id: UUID?` property to the `User` model and make the `username` property non-optional. Then replace the `User: Model` extension to be either `PostgreSQLUUIDModel` or `MySQLUUIDModel`, depending on the database you are using:
+
+https://gist.github.com/calebkleveter/bb565870c9b3cb6635fc1d49e0a6e32c
+
+This will break our `UserConnection` implementation. You will need to change the ID property types to `UUID` also:
+
+https://gist.github.com/calebkleveter/8e8c48d0179b6a19e584d3de2bb58c1e
+
 
 
 
