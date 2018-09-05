@@ -1,5 +1,6 @@
 import Vapor
 import Fluent
+import FluentSQL
 
 final class UserController: RouteCollection {
     func boot(router: Router) throws {
@@ -12,6 +13,7 @@ final class UserController: RouteCollection {
         users.get(User.parameter, use: show)
         users.get(User.parameter, "followers", use: followers)
         users.get(User.parameter, "following", use: following)
+        users.get("search", use: search)
         
         users.patch(UserContent.self, at: User.parameter, use: update)
         
@@ -53,6 +55,13 @@ final class UserController: RouteCollection {
         return try request.parameters.next(User.self).flatMap { user in
             return try user.following.query(on: request).all()
         }
+    }
+    
+    func search(_ request: Request)throws -> Future<[User]> {
+        let name = try request.query.get(String.self, at: "name")
+        return User.query(on: request).group(.or) { query in
+            query.filter(\.username =~ name).filter(\.firstname =~ name).filter(\.lastname =~ name)
+        }.all()
     }
     
     func update(_ request: Request, _ body: UserContent)throws -> Future<User> {

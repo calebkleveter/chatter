@@ -71,6 +71,16 @@ To un-follow a user, we are going to make a `DELETE` route with the path `{user}
 
 https://gist.github.com/calebkleveter/3f25d98a7f116920569278047b37e2d4
 
+As with the previous handler, we get the current user and the user being followed, but then we call `User.unfollow(user:on:)`. We then return the HTTP status 204 (No Content).
+
+We will add one more route to the `UserController` to search for users by their name. This will get a `GET` route at `users/search`. The name to search by will be passed in using a query string. The handler looks like this:
+
+https://gist.github.com/calebkleveter/794b1a50b1dfbcc964e8a29b24d27ac9
+
+First we get the `name` value from the request's query strings.
+
+## [Migrating the ID](https://docs.vapor.codes/3.0/fluent/migrations/)
+
 
 
 
