@@ -13,7 +13,7 @@ Now we need to think of what a post needs. There are many things you could add, 
 - `contents`: This is the text that people can read.
 - `userID`: The ID of the `User` that owns the post.
 
-We could have an array of tags, but you get performance and maintenance if you have a pivot between a `Tag` model and `Post` model, so we'll leave that out for now.
+We could have an array of tags, but you get better performance and maintenance if you have a pivot between a `Tag` model and `Post` model, so we'll leave that out for now.
 
 Your `Post` model should then look like this:
 
@@ -21,5 +21,7 @@ https://gist.github.com/calebkleveter/2a5dca49930bf812dc6a366da30b8fa7
 
 You might have differences with your implementation. You might make `userID` mutable or have the initializer take in a `User` model and extract the ID from it. That's okay.
 
+Don't forgot to add your `Post` model to the migrations config:
 
+https://gist.github.com/calebkleveter/2e63cb9fac74efa2ec9383da996eb927
 
