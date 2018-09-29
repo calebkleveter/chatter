@@ -60,3 +60,9 @@ https://gist.github.com/calebkleveter/444a464bd10370112911a03e89758b41
 Unlike Twitter, we'll let people edit their posts 😄. First, we decoding the request's body to a `PostBody` instance; then we will get `User` passed in to the request's parameters. The `User`'s posts can then by filtered by their ID, using the ID which was also passed into the request's parameters. We can then update the `Post`'s in the query using the decoded `PostBody.content` property. Since we are filtering by ID, we can guarantee there will be 0 or 1 result, so we call `.first()` and unwrap it, throwing an `Abort(.notFound)` if we get `nil`:
 
 https://gist.github.com/calebkleveter/50f992e3563c59d13c3a65e8901fc3f8
+
+**Delete**
+
+To delete a post, we will get the `Post` ID and `User` from the request parameters and filter the `User`'s posts with the ID. We can then call `.delete()` on the query and transform it to an `HTTPStatus.noContent`:
+
+https://gist.github.com/calebkleveter/5c860066caf494f54f5e461f89be4b6c

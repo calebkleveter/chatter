@@ -8,6 +8,7 @@ final class PostController: RouteCollection {
         posts.post(PostBody.self, use: create)
         posts.get(use: get)
         posts.patch(PostBody.self, at: Post.ID.parameter, use: patch)
+        posts.delete(Post.ID.parameter, use: delete)
     }
     
     func create(_ request: Request, body: PostBody)throws -> Future<Post> {
@@ -30,6 +31,13 @@ final class PostController: RouteCollection {
             let notFound = try Abort(.notFound, reason: "No post with ID '\(postID)' found for user '\(user.requireID())'")
             
             return try user.posts.query(on: request).filter(\.id == postID).update(\.contents, to: body.contents).first().unwrap(or: notFound)
+        }
+    }
+    
+    func delete(_ request: Request)throws -> Future<HTTPStatus> {
+        return try request.parameters.next(User.self).flatMap { user in
+            let postID = try request.parameters.next(Post.ID.self)
+            return try user.posts.query(on: request).filter(\.id == postID).delete().transform(to: .noContent)
         }
     }
 }
