@@ -4,11 +4,11 @@ In the [last tutorial](https://theswiftwebdeveloper.com/diving-into-vapor-part-4
 
 ## Creating a Child
 
-In the app we are creating, the 'parent' model will be `User` and the 'child' model will be a new `Post` model we are going to create. Start by creating a `Post.swift` file in your `Models/` directory and building the basic structure of the `Post` model:
+In the app we are creating, the 'parent' model will be `User` and the 'child' model will be a new `Post` model. Start by creating a `Post.swift` file in your `Models/` directory and building the basic structure of the `Post` model:
 
 https://gist.github.com/calebkleveter/c5fe46e889428d5b0e574a3f89f4d702
 
-Now we need to think of what a post needs. There are many things you could add, such as images, polls, and other widgets, but that gets out of the scope of this tutorial, so we will only have 2 fields:
+Now we need to think of what a post needs. There are many things you could add, such as images, polls, and other widgets, but that gets out of the scope of this tutorial, so we will have only 2 fields:
 
 - `contents`: This is the text that people can read.
 - `userID`: The ID of the `User` that owns the post.
@@ -24,4 +24,8 @@ You might have differences with your implementation. You might make `userID` mut
 Don't forgot to add your `Post` model to the migrations config:
 
 https://gist.github.com/calebkleveter/2e63cb9fac74efa2ec9383da996eb927
+
+At this point the relationship is ready. All we are going to do now is add helper property to the `User` model so we can easily get its child `Post` models:
+
+https://gist.github.com/calebkleveter/c197185b7a944534026536ae43a186b1
 

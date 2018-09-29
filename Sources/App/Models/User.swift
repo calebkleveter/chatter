@@ -19,6 +19,12 @@ final class User: Content, Parameter {
     }
 }
 
+extension User {
+    var posts: Children<User, Post> {
+        return self.children(\.userID)
+    }
+}
+
 extension User: Migration {
     public static func prepare(on connection: PostgreSQLConnection) -> Future<Void> {
         return Database.create(self, on: connection) { builder in
