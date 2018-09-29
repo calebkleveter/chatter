@@ -14,4 +14,5 @@ final class Post {
 
 extension Post: Content {}
 extension Post: Parameter {}
+extension Post: Migration {}
 extension Post: PostgreSQLUUIDModel {}
