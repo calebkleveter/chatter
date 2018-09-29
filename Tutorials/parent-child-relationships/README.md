@@ -29,3 +29,16 @@ At this point the relationship is ready. All we are going to do now is add helpe
 
 https://gist.github.com/calebkleveter/c197185b7a944534026536ae43a186b1
 
+## CRUD and Parent-Child Relationships
+
+Now that the `Post` model is setup, we can create API endpoints for it. We can start out with the controller looking like this:
+
+https://gist.github.com/calebkleveter/b418507fcb6b0be23f574e7767d6a07b
+
+Notice that the `posts` router group is not `/posts`, but `/users/{user}/posts`. This is because a `Post` model cannot be independent of a `User` parent, so we want to show that in the API.
+
+We'll start with a basic `GET` route that fetches all the posts belonging to a `User`. We do this by getting the `User` model from the request's parameters and calling `.posts` on it. This property lets you create a `QueryBuilder` that automatically filters the children for parent's ID. We create the `QueryBuilder` and call `.all()` on it:
+
+https://gist.github.com/calebkleveter/27aacec265163cff7279b4ee4f0781d8
+
+
