@@ -49,3 +49,8 @@ Creating a `Post` model will be a bit more complex on our side because of the wa
 
 https://gist.github.com/calebkleveter/2f8d4cfe2ef9c791c91c6b424a12a00f
 
+Now that we can decode the request body, we can create the route handler. To create the `Post` model, we need to get the `User` model ID from the request parameters. We could just get the `User` model, but that requires an extra database query we don't want to have to make. Instead, we will get the raw parameter value, and convert it to a UUID. This won't verify that the `User` ID passed in is valid, but we can fix that by adding a foreign-key constraint to the `Post` model's migration.
+
+After we get the UUID, we can convert the `PostBody` to a `Post` and save it:
+
+https://gist.github.com/calebkleveter/444a464bd10370112911a03e89758b41
