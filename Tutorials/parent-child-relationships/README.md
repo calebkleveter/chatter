@@ -66,3 +66,8 @@ https://gist.github.com/calebkleveter/50f992e3563c59d13c3a65e8901fc3f8
 To delete a post, we will get the `Post` ID and `User` from the request parameters and filter the `User`'s posts with the ID. We can then call `.delete()` on the query and transform it to an `HTTPStatus.noContent`:
 
 https://gist.github.com/calebkleveter/5c860066caf494f54f5e461f89be4b6c
+
+
+Finish up by registering your `PostController` router in your `routes.swift` file:
+
+https://gist.github.com/calebkleveter/6d2ea4aef752646a9ee8d6ba2eb3bcba
