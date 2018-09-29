@@ -71,3 +71,11 @@ https://gist.github.com/calebkleveter/5c860066caf494f54f5e461f89be4b6c
 Finish up by registering your `PostController` router in your `routes.swift` file:
 
 https://gist.github.com/calebkleveter/6d2ea4aef752646a9ee8d6ba2eb3bcba
+
+## Foreign-Key Constraints
+
+I said we would add a foreign-key constraint to the `Post` model so the `userID` passed in is always valid. Create a custom migration for the `Post` model like we did for the `User` model, but instead of adding `UNIQUE` constraints to our properties, we will add a reference between the `Post.userID` property and the `User.id` property, like this:
+
+https://gist.github.com/calebkleveter/283d941ae7e02f1f32ab4275230d31cb
+
+Now the database will always check to make sure the `userID` value is valid.

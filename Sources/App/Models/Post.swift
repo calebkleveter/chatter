@@ -12,7 +12,15 @@ final class Post {
     }
 }
 
+extension Post: Migration {
+    public static func prepare(on connection: PostgreSQLConnection) -> Future<Void> {
+        return Database.create(self, on: connection) { builder in
+            try addProperties(to: builder)
+            builder.reference(from: \.userID, to: \User.id)
+        }
+    }
+}
+
 extension Post: Content {}
 extension Post: Parameter {}
-extension Post: Migration {}
 extension Post: PostgreSQLUUIDModel {}
