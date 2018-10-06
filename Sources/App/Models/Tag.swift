@@ -9,3 +9,8 @@ final class Tag {
         self.name = name
     }
 }
+
+extension Tag: Content {}
+extension Tag: Parameter {}
+extension Tag: Migration {}
+extension Tag: PostgreSQLUUIDModel {}
