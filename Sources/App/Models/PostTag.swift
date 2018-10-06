@@ -18,5 +18,17 @@ final class PostTag: PostgreSQLUUIDPivot {
     }
 }
 
+extension Post {
+    var tags: Siblings<Post, Tag, PostTag> {
+        return self.siblings()
+    }
+}
+
+extension Tag {
+    var posts: Siblings<Tag, Post, PostTag> {
+        return self.siblings()
+    }
+}
+
 extension PostTag: Content {}
 extension PostTag: Migration {}
