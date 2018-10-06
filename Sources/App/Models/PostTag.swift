@@ -17,3 +17,6 @@ final class PostTag: PostgreSQLUUIDPivot {
         self.tagID = try tag.requireID()
     }
 }
+
+extension PostTag: Content {}
+extension PostTag: Migration {}
