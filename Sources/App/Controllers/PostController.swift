@@ -54,6 +54,7 @@ final class PostController: RouteCollection {
 
 struct PostBody: Content {
     let contents: String
+    let tags: [String]?
     
     func model(with id: User.ID) -> Post {
         return Post(contents: self.contents, userID: id)
