@@ -79,3 +79,9 @@ I said we would add a foreign-key constraint to the `Post` model so the `userID`
 https://gist.github.com/calebkleveter/283d941ae7e02f1f32ab4275230d31cb
 
 Now the database will always check to make sure the `userID` value is valid.
+
+---
+
+Great job! You have successfully created a parent-child relationship in Fluent! As always, check out the [docs](https://docs.vapor.codes/3.0/) and say 'hi' on the [Discord server](https://discord.gg/MT8VvfG)!
+
+If you want, you can add an additional `GET` route the `PostController` controller to get a single `Post` from a `User` instead of all of them. Have Fun!
