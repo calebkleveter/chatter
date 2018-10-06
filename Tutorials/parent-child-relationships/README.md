@@ -85,6 +85,6 @@ Now the database will always check to make sure the `userID` value is valid.
 
 ---
 
-Great job! You have successfully created a parent-child relationship in Fluent! As always, check out the [docs](https://docs.vapor.codes/3.0/) and say 'hi' on the [Discord server](https://discord.gg/MT8VvfG)!
+Great job! You have successfully created a parent-child relationship in Fluent! As always, check out the [docs](https://docs.vapor.codes/3.0/) and say 'hi' on the [Discord server](https://discord.gg/MT8VvfG)! You can find the source for this project [here](https://github.com/calebkleveter/chatter/tree/parent-child-relationships).
 
 If you want, you can add an additional `GET` route the `PostController` controller to get a single `Post` from a `User` instead of all of them. Have Fun!
