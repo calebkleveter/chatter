@@ -25,6 +25,7 @@ public func configure(
     migrations.add(model: User.self, database: .psql)
     migrations.add(model: UserConnection.self, database: .psql)
     migrations.add(model: Post.self, database: .psql)
+    migrations.add(model: Tag.self, database: .psql)
     services.register(migrations)
     
     var commands = CommandConfig.default()
