@@ -20,7 +20,14 @@ final class PostController: RouteCollection {
         let tags = body.tags?.map(Tag.init)
         
         let savedTags = tags?.map { tag in tag.save(on: request) }.flatten(on: request) ?? request.future([])
-        return savedTags.transform(to: request).flatMap(post.save)
+        let savedPost = savedTags.transform(to: request).flatMap(post.save)
+        let postTags = flatMap(savedTags, savedPost) { tags, post in
+            return try tags.map { tag in
+                return try PostTag(post: post, tag: tag).save(on: request)
+            }.flatten(on: request)
+        }
+        
+        return postTags.flatMap { _ in savedPost }
     }
     
     func get(_ request: Request)throws -> Future<[Post]> {
