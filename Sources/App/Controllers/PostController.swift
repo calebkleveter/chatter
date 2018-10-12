@@ -17,7 +17,10 @@ final class PostController: RouteCollection {
             throw Abort(.badRequest, reason: "User ID paramater not convertible to UUID")
         }
         let post = body.model(with: id)
-        return post.save(on: request)
+        let tags = body.tags?.map(Tag.init)
+        
+        let savedTags = tags?.map { tag in tag.save(on: request) }.flatten(on: request) ?? request.future([])
+        return savedTags.transform(to: request).flatMap(post.save)
     }
     
     func get(_ request: Request)throws -> Future<[Post]> {
