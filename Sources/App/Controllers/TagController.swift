@@ -3,9 +3,14 @@ import Vapor
 
 final class TagController: RouteCollection {
     func boot(router: Router) throws {
-        let tags = router.grouped("tags", Tag.parameter)
+        let tags = router.grouped("tags")
         
-        tags.get("posts", use: posts)
+        tags.get(use: get)
+        tags.get(Tag.parameter, "posts", use: posts)
+    }
+    
+    func get(_ request: Request)throws -> Future<[Tag]> {
+        return Tag.query(on: request).all()
     }
     
     func posts(_ request: Request)throws -> Future<[Post]> {
