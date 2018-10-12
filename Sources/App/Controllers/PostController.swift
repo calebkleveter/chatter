@@ -73,10 +73,14 @@ final class PostController: RouteCollection {
     }
     
     func delete(_ request: Request)throws -> Future<HTTPStatus> {
-        return try request.parameters.next(User.self).flatMap { user in
-            let postID = try request.parameters.next(Post.ID.self)
-            return try user.posts.query(on: request).filter(\.id == postID).delete().transform(to: .noContent)
-        }
+        let user = try request.parameters.next(User.self)
+        let postID = try request.parameters.next(Post.ID.self)
+        
+        return PostTag.query(on: request).filter(\.postID == postID).delete().flatMap {
+            return user
+        }.flatMap { (user: User) in
+            return try user.posts.query(on: request).filter(\.id == postID).delete().transform(to: user)
+        }.transform(to: .noContent)
     }
 }
 
