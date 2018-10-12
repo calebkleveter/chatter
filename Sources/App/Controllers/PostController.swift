@@ -46,11 +46,29 @@ final class PostController: RouteCollection {
     }
     
     func patch(_ request: Request, body: PostBody)throws -> Future<Post> {
-        return try request.parameters.next(User.self).flatMap { user in
+        return try request.parameters.next(User.self).flatMap { user -> Future<Post> in
             let postID = try request.parameters.next(Post.ID.self)
             let notFound = try Abort(.notFound, reason: "No post with ID '\(postID)' found for user '\(user.requireID())'")
             
             return try user.posts.query(on: request).filter(\.id == postID).update(\.contents, to: body.contents).first().unwrap(or: notFound)
+        }.flatMap { (post: Post) -> Future<Post> in
+            guard let tags = body.tags else {
+                return request.future(post)
+            }
+            let query = PostTag.query(on: request).join(\Tag.id, to: \PostTag.tagID)
+            try query.filter(\.postID == post.requireID())
+            query.filter(\Tag.name ~~ tags)
+                
+            return query.delete().transform(to: post)
+        }.flatMap { post -> Future<Post> in
+            let newTags = body.tags?.map(Tag.init).map { tag in tag.save(on: request) }.flatten(on: request) ?? request.future([])
+            let postTags = newTags.flatMap { tags in
+                return try tags.map { tag in
+                    return try PostTag(post: post, tag: tag).save(on: request)
+                }.flatten(on: request)
+            }
+            
+            return postTags.transform(to: post)
         }
     }
     
