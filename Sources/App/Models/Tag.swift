@@ -10,7 +10,15 @@ final class Tag {
     }
 }
 
+extension Tag: Migration {
+    public static func prepare(on connection: PostgreSQLConnection) -> Future<Void> {
+        return Database.create(self, on: connection) { builder in
+            try addProperties(to: builder)
+            builder.unique(on: \.name)
+        }
+    }
+}
+
 extension Tag: Content {}
 extension Tag: Parameter {}
-extension Tag: Migration {}
 extension Tag: PostgreSQLUUIDModel {}
