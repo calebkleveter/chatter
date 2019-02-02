@@ -22,3 +22,21 @@ Lets install both of the JWT packages I mentioned before:
 ```bash
 swift package update && vapor xcode -y
 ```
+
+## The Payload
+
+Create a `Payload.swift` file in the `Models/` directory. Import the `JWT` module and create a class that looks something like this:
+
+https://gist.github.com/calebkleveter/50842656e7d238b29cdf96ad80dbcea1
+
+You can add more values to this payload if you want, but these three are all we need. I'll walk you through each one:
+
+- `id` This is the ID of the user that authenticated.
+- `exp` The UNIX timestamp of the token's expiration time. After that timestamp, the token has to be refreshed (we will discuss how to do this later).
+- `iat` The UNIX timestamp of when the token was created.
+
+Now let's implement the `verify` method. This method is run by the JWT middleware to make sure the data in the token is valid. The `JWT` module has various `Claim` types that you can use to verify the payload's values. There isn't any validation for the `id` property, but we can check the `exp` and `iat` properties.
+
+For the `exp` property, we will use the `ExpirationClaim` type to make sure the token hasn't expired yet. For the `iat` property, we will use the `NotBeforeClaim` type to make sure the token was created after the current time (yeah, it's not possible, but it helps prevent malformed JWTs from getting through).
+
+https://gist.github.com/calebkleveter/e5b47cf08cf985ac2e703e7e211ecbb8
